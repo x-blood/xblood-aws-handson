@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 192.168.192.0/16
+
+  Ig:
+    Type: AWS::EC2::InternetGateway
+
+  GWAttachment0:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: Ig
+      VpcId: Vpc
+
+  PublicSubnet0:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 192.168.192.0/24
+      MapPublicIpOnLaunch: True
+      VpcId: Vpc 
+
+

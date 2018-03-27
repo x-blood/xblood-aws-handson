@@ -11,15 +11,34 @@ Resources:
   GWAttachment0:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
-      InternetGatewayId: Ig
-      VpcId: Vpc
+      InternetGatewayId: !Ref Ig
+      VpcId: !Ref Vpc
 
   PublicSubnet0:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: ap-northeast-1a
       CidrBlock: 192.168.192.0/24
-      MapPublicIpOnLaunch: True
-      VpcId: Vpc 
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref Vpc
 
+  PrivateSubnet0:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: 192.168.193.0/24
+      VpcId: !Ref Vpc
 
+Outputs:
+  VpcId:
+    Value: !Ref Vpc
+    Export:
+      Name: 'VpcId'
+  PublicSubnet0Id:
+    Value: !Ref PublicSubnet0
+    Export:
+      Name: 'PublicSubnet0'
+  PrivateSubnet0Id:
+    Value: !Ref PrivateSubnet0
+    Export:
+      Name: 'PrivateSubnet0'

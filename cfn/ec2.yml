@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Ec2:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: ap-northeast-1a
+      ImageId: ami-48630c2e
+      InstanceType: t2.micro
+      SubnetId:
+        Fn::ImportValue: 'PrivateSubnet0'
+Outputs:
+  Ec2InstanceId:
+    Value: !Ref Ec2
+    Export:
+      Name: 'Ec2Instance'

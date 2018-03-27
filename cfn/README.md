@@ -32,7 +32,19 @@ aws cloudformation validate-template \
 
 # スタックの作成
 aws cloudformation create-stack \
-  --stack-name "vpc" \
+  --stack-name ${CFN_TEMPLATE_NAME} \
   --template-body file://${FILE_INPUT} \
   --profile ${AWS_CLI_PROFILE}
+
+# スタックの更新
+aws cloudformation update-stack \
+  --stack-name ${CFN_TEMPLATE_NAME} \
+  --template-body file://${FILE_INPUT} \
+  --profile ${AWS_CLI_PROFILE}
+
+# スタックの削除
+aws cloudformation delete-stack \
+  --stack-name ${CFN_TEMPLATE_NAME} \
+  --profile ${AWS_CLI_PROFILE}
+
 ```

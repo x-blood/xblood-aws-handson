@@ -1,10 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
-  alexaBookingMettingRoomFunction:
+  alexaBookingMeetingRoomFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: js-test-export-vpc-flow-logs
+      FunctionName: alexa-booking-meeting-room
       CodeUri: src/handlers
       Handler: index.handler
       Runtime: nodejs6.10

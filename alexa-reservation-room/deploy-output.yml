@@ -1,12 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  alexaBookingMettingRoomFunction:
+  alexaBookingMeetingRoomFunction:
     Properties:
-      CodeUri: s3://alexa-booking-meeting-room-package/1ff4099323df76fb800d77c58df39949
+      CodeUri: s3://alexa-booking-meeting-room-package/98bbe02dfb5566470403017f248b23ba
       Environment:
         Variables:
           TZ: Asia/Tokyo
-      FunctionName: js-test-export-vpc-flow-logs
+      FunctionName: alexa-booking-meeting-room
       Handler: index.handler
       Runtime: nodejs6.10
     Type: AWS::Serverless::Function

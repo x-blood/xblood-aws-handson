@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  alexaBookingMettingRoomFunction:
+    Properties:
+      CodeUri: s3://alexa-booking-meeting-room-package/1ff4099323df76fb800d77c58df39949
+      Environment:
+        Variables:
+          TZ: Asia/Tokyo
+      FunctionName: js-test-export-vpc-flow-logs
+      Handler: index.handler
+      Runtime: nodejs6.10
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31

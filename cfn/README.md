@@ -27,7 +27,7 @@ ETX
 
 # 検証実行
 aws cloudformation validate-template \
-  --template-body file://${FILE_INPUT}
+  --template-body file://${FILE_INPUT} \
   --profile ${AWS_CLI_PROFILE}
 
 # スタックの作成

@@ -2,10 +2,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   alexaBookingMeetingRoomFunction:
     Properties:
-      CodeUri: s3://alexa-booking-meeting-room-package/98bbe02dfb5566470403017f248b23ba
+      CodeUri: s3://alexa-booking-meeting-room-package/3e887999483600ca6395135245759702
       Environment:
         Variables:
           TZ: Asia/Tokyo
+      Events:
+        AlexaSkillEvent:
+          Type: AlexaSkill
       FunctionName: alexa-booking-meeting-room
       Handler: index.handler
       Runtime: nodejs6.10

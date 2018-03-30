@@ -8,6 +8,9 @@ Resources:
       CodeUri: src/handlers
       Handler: index.handler
       Runtime: nodejs6.10
+      Events:
+        AlexaSkillEvent:
+          Type: AlexaSkill
       Environment:
         Variables:
           TZ: 'Asia/Tokyo'

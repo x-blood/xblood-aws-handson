@@ -1,3 +1,13 @@
+# セットアップ
+## 必要な外部ライブラリのインストール
+```
+cd src/handlers
+# alexa-sdk
+npm install --save alexa-sdk
+# node-rest-client
+npm install node-rest-client
+```
+## よく使うコマンド
 ```
 # 検証実行
 aws cloudformation validate-template \
@@ -21,10 +31,7 @@ aws cloudformation delete-stack \
   --stack-name s3package \
   --profile handson20180323
 ```
-
-
-
-
+## デプロイコマンド
 ```
 # パッケージ
 aws cloudformation package \

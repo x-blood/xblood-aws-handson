@@ -1,4 +1,34 @@
 # セットアップ
+## node.jsのセットアップ(Linux)
+```
+# nvmのインストール
+git clone https://github.com/creationix/nvm.git ~/.nvm
+source ~/.nvm/nvm.sh
+
+# nvmのバージョン確認
+nvm --version
+
+# Node.jsのインストール
+nvm install 6.14.1
+
+# Node.jsのバージョン確認
+node -v
+```
+
+## 推奨：nvmの設定(Linux)
+```
+# デフォルトのNode.jsのバージョン指定
+nvm alias default v6.14.1
+
+# ターミナル起動時の指定
+vi ~/.bash_profile
+
+# 下記情報を入力
+if [[ -s ~/.nvm/nvm.sh ]];
+ then source ~/.nvm/nvm.sh
+fi
+```
+
 ## 必要な外部ライブラリのインストール
 ```
 cd src/handlers

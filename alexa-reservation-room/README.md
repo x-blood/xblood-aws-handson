@@ -21,7 +21,7 @@ node -v
 nvm alias default v6.14.1
 
 # ターミナル起動時の指定
-vi ~/.bash_profile
+vi ~/.bashrc
 
 # 下記情報を入力
 if [[ -s ~/.nvm/nvm.sh ]];

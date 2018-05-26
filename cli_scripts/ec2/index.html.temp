@@ -1,0 +1,13 @@
+<html>
+<head>
+  <title>My AWS</title>
+</head>
+<body>
+  menu<BR>
+  <a href="http://{PUBLIC_IP}:8010/">Jenkins</a><BR>
+  <a href="http://{PUBLIC_IP}:8080/xblood_spring_boot/">spring boot</a><BR>
+  <a href="http://{PUBLIC_IP}:9000/xblood_play_java/">Play Java</a><BR>
+  <a href="http://{PUBLIC_IP}:9010/xblood_play_scala/">Play Scala</a><BR>
+  <a href="http://{PUBLIC_IP}:3000/xblood_ruby_on_rails/">Ruby on Rails</a><BR> 
+</body>
+</html>

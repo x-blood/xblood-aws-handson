@@ -14,6 +14,23 @@ Resources:
       InternetGatewayId: !Ref Ig
       VpcId: !Ref Vpc
 
+  RouteTableForPB:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+      Tags:
+        -
+          Key: 'Name'
+          Value: 'RT for Public Subnet'
+
+  RouteTableRoutingForPB:
+    Type: AWS::EC2::Route
+    DependsOn: Ig
+    Properties:
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref Ig
+      RouteTableId: !Ref RouteTableForPB
+
   PublicSubnet0:
     Type: AWS::EC2::Subnet
     Properties:
@@ -21,6 +38,16 @@ Resources:
       CidrBlock: 192.168.192.0/24
       MapPublicIpOnLaunch: 'true'
       VpcId: !Ref Vpc
+      Tags:
+        -
+          Key: 'Name'
+          Value: 'Public Subnet'
+          
+  RTAttachment0:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTableForPB
+      SubnetId: !Ref PublicSubnet0
 
   PrivateSubnet0:
     Type: AWS::EC2::Subnet
@@ -28,6 +55,16 @@ Resources:
       AvailabilityZone: ap-northeast-1a
       CidrBlock: 192.168.193.0/24
       VpcId: !Ref Vpc
+      Tags:
+        -
+          Key: 'Name'
+          Value: 'Private Subnet'
+
+  RTAttachment1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTableForPB
+      SubnetId: !Ref PrivateSubnet0
 
 Outputs:
   VpcId:

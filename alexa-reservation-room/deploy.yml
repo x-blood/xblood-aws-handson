@@ -1,5 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+Parameters:
+  LambdaFunctionVersion:
+    Type: String
+
 Resources:
   alexaBookingMeetingRoomFunction:
     Type: AWS::Serverless::Function
@@ -14,3 +18,5 @@ Resources:
       Environment:
         Variables:
           TZ: 'Asia/Tokyo'
+          Version: 
+            Ref: LambdaFunctionVersion

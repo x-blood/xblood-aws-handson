@@ -11,5 +11,6 @@ aws cloudformation package \
 aws cloudformation deploy \
   --template-file deploy-output.yml \
   --stack-name alexa-booking-meeting-room-sam \
+  --parameter-overrides LambdaFunctionVersion=0.02 \
   --capabilities CAPABILITY_IAM \
   --profile handson20180323

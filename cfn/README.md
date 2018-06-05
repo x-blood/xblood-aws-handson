@@ -53,3 +53,20 @@ aws cloudformation delete-stack \
   --stack-name ${CFN_TEMPLATE_NAME} \
   --profile ${AWS_CLI_PROFILE}
 ```
+
+# Deep Learning AMI Knowledge
+## How to Run jupyter Notebook on Deep Learning AMI
+### 1. インスタンスに接続して、jupyter Notebookをバックグランドで起動する。
+ログにURLが出力されるので控えておくこと。
+```
+# 接続
+ssh -i <.pem file path> ubuntu@<elastic ip>
+# バックグランドでjupyter Notebookを起動。
+nohup jupyter notebook >> jupyter.log 2>&1 &
+```
+### 2. ポートフォワーディングを設定してサーバーのjupyter Notebookにアクセスする。
+下記の接続を成立させたあと、前項で控えたURLを用いてアクセスする。
+```
+# ポートフォワーディングによる接続
+ssh -L localhost:8888:localhost:8888 -i <.pem file path> ubuntu@<elastic ip>
+```

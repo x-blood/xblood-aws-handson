@@ -4,7 +4,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       AvailabilityZone: ap-northeast-1a
-      ImageId: ami-48630c2e
+      ImageId: ami-61cb211e
       InstanceType: t2.micro
       KeyName: 'ec2-keypair'
       SubnetId:

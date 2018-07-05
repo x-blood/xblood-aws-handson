@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Ec2IamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          -
+            Effect: 'Allow'
+            Principal:
+              Service:
+                - 'ec2.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Path: '/'
+      RoleName: 'EC2-IAM-ROLE'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+  Ec2IamRoleInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - Ref: Ec2IamRole
+      InstanceProfileName: 'EC2-IAM-ROLE'
+  DiskUsageCustomMetricsPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: 'DiskUsageCustomMetricsPolicy'
+      Roles:
+        - Ref: Ec2IamRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          -
+            Effect: 'Allow'
+            Resource: '*'
+            Action:
+              - cloudwatch:PutMetricData
+              - ec2:DescribeTags
+              - cloudwatch:GetMetricStatistics
+              - cloudwatch:ListMetrics
+
+Outputs:
+  Ec2IamRoleName:
+    Value: !Ref Ec2IamRole
+    Export:
+      Name: 'RoleName'

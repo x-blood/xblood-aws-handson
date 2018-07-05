@@ -5,15 +5,14 @@
 DIR_CONF=~/tech/xblood-aws-handson/cfn
 
 # ymlファイルの指定
-# vcp
+# vpc.ymlの場合、vpcを指定
 CFN_TEMPLATE_NAME=vpc
-# ec2
-CFN_TEMPLATE_NAME=ec2
 
 # 入力パスの指定
 FILE_INPUT="${DIR_CONF}/${CFN_TEMPLATE_NAME}.yml"
 
 # プロファイルの指定
+# 適宜入力すること。入力例はハンズオンアカウント
 AWS_CLI_PROFILE=handson20180323
 
 # 環境変数の確認
@@ -37,12 +36,14 @@ aws cloudformation validate-template \
   --profile ${AWS_CLI_PROFILE}
 
 # スタックの作成
+# 必要であればcapabilitiesオプションを指定(--capabilities CAPABILITY_NAMED_IAM)
 aws cloudformation create-stack \
   --stack-name ${CFN_TEMPLATE_NAME} \
   --template-body file://${FILE_INPUT} \
   --profile ${AWS_CLI_PROFILE}
 
 # スタックの更新(よく使う)
+# 必要であればcapabilitiesオプションを指定(--capabilities CAPABILITY_NAMED_IAM)
 aws cloudformation update-stack \
   --stack-name ${CFN_TEMPLATE_NAME} \
   --template-body file://${FILE_INPUT} \

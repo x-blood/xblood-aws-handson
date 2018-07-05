@@ -12,6 +12,8 @@ Resources:
       SecurityGroupIds:
         -
           !Ref EC2SecurityGroup
+      IamInstanceProfile:
+        Fn::ImportValue: 'Ec2IamRoleName'
 
   EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup

@@ -45,4 +45,4 @@ Outputs:
   Ec2IamRoleName:
     Value: !Ref Ec2IamRole
     Export:
-      Name: 'RoleName'
+      Name: 'Ec2IamRoleName'

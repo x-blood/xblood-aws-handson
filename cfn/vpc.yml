@@ -31,6 +31,15 @@ Resources:
       GatewayId: !Ref Ig
       RouteTableId: !Ref RouteTableForPB
 
+  RouteTableForPrivateSubnet:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc
+      Tags:
+        -
+          Key: 'Name'
+          Value: 'RT for Private Subnet'
+
   PublicSubnet0:
     Type: AWS::EC2::Subnet
     Properties:
@@ -41,7 +50,7 @@ Resources:
       Tags:
         -
           Key: 'Name'
-          Value: 'Public Subnet'
+          Value: 'Public Subnet 1a'
           
   RTAttachment0:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -58,13 +67,30 @@ Resources:
       Tags:
         -
           Key: 'Name'
-          Value: 'Private Subnet'
+          Value: 'Private Subnet 1a'
 
   RTAttachment1:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      RouteTableId: !Ref RouteTableForPB
+      RouteTableId: !Ref RouteTableForPrivateSubnet
       SubnetId: !Ref PrivateSubnet0
+
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: 192.168.194.0/24
+      VpcId: !Ref Vpc
+      Tags:
+        -
+          Key: 'Name'
+          Value: 'Private Subnet 1c'
+
+  RTAttachment2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTableForPrivateSubnet
+      SubnetId: !Ref PrivateSubnet1
 
 Outputs:
   VpcId:
@@ -79,3 +105,7 @@ Outputs:
     Value: !Ref PrivateSubnet0
     Export:
       Name: 'PrivateSubnet0'
+  PrivateSubnet1Id:
+    Value: !Ref PrivateSubnet1
+    Export:
+      Name: 'PrivateSubnet1'

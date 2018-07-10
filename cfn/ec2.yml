@@ -37,3 +37,7 @@ Outputs:
     Value: !Ref Ec2
     Export:
       Name: 'Ec2Instance'
+  EC2SecurityGroupId:
+    Value: !Ref EC2SecurityGroup
+    Export:
+      Name: 'EC2SecurityGroupId'

@@ -14,27 +14,38 @@ Resources:
       Port: 5432
       VpcSecurityGroupIds:
         - !Ref 'AuroraPostgresqlSecurityGroup'
-      # クラスタパラメーターに変更はないため、マネージメントコンソールから事前に作成した
-      DBClusterParameterGroupName: 'aurora-postgresql-cluster'
+      # クラスタパラメーターの設定は未検証
+      DBClusterParameterGroupName: !Ref 'AuroraPostgresqlClusterParameterGroup'
       # サブネットグループは事前作成していたものを指定した
       DBSubnetGroupName: 'write-your-subnet-group-name'
       # 暗号化は指定しないと無効になる
       StorageEncrypted: true
 
+  # DBClusterParameterGroupはNameの指定が出来ないように見受けられる。
+  AuroraPostgresqlClusterParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    DeletionPolicy: Retain
+    Properties:
+      Description: 'for aurora-postgresql-cluster'
+      Family: aurora-postgresql9.6
+      Parameters:
+        timezone: 'Asia/Tokyo'
+
   AuroraPostgresql:
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Retain
-      Properties:
-        DBInstanceIdentifier: 'aurora-postgresql'
-        DBClusterIdentifier: !Ref 'AuroraPostgresqlCluster'
-        Engine: aurora-postgresql
-        EngineVersion: 9.6.3
-        DBInstanceClass: db.r4.large
-        AvailabilityZone: ap-northeast-1c
-        DBParameterGroupName: !Ref 'AuroraPostgresqlDBParameterGroup'
-        # サブネットグループは事前作成していたものを指定した
-        DBSubnetGroupName: 'write-your-subnet-group-name'
+    Properties:
+      DBInstanceIdentifier: 'aurora-postgresql'
+      DBClusterIdentifier: !Ref 'AuroraPostgresqlCluster'
+      Engine: aurora-postgresql
+      EngineVersion: 9.6.3
+      DBInstanceClass: db.r4.large
+      AvailabilityZone: ap-northeast-1c
+      DBParameterGroupName: !Ref 'AuroraPostgresqlDBParameterGroup'
+      # サブネットグループは事前作成していたものを指定した
+      DBSubnetGroupName: 'write-your-subnet-group-name'
 
+  # DBParameterGroupはNameの指定が出来ないように見受けられる。
   AuroraPostgresqlDBParameterGroup:
     Type: AWS::RDS::DBParameterGroup
     DeletionPolicy: Retain
@@ -49,23 +60,37 @@ Resources:
         work_mem: 5242880
         maintenance_work_mem: 10485760
 
-    AuroraPostgresqlSecurityGroup:
-      Type: AWS::EC2::SecurityGroup
-      DeletionPolicy: Retain
-      Properties:
-        GroupName: 'aurora-postgresql-sg'
-        GroupDescription: 'for aurora-postgresql'
-        Tags:
+  AuroraPostgresqlSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DeletionPolicy: Retain
+    Properties:
+      GroupName: 'aurora-postgresql-sg'
+      GroupDescription: 'for aurora-postgresql'
+      Tags:
+      -
+        Key: 'Name'
+        Value: 'aurora-postgresql-sg'
+      SecurityGroupIngress:
         -
-          Key: 'Name'
-          Value: 'aurora-postgresql-sg'
-        SecurityGroupIngress:
-          -
-            IpProtocol: 'tcp'
-            FromPort: '5432'
-            ToPort: '5432'
-            SourceSecurityGroupId: 'write you security group id'
-            Description: ''
-        # VPC
-        VpcId:
-          Fn::ImportValue: 'VpcId'
+          IpProtocol: 'tcp'
+          FromPort: '5432'
+          ToPort: '5432'
+          SourceSecurityGroupId: 'write you security group id'
+          Description: ''
+      # VPC
+      VpcId:
+        Fn::ImportValue: 'VpcId'
+
+Outputs:
+  AuroraPostgresqlClusterIdentifier:
+    Value: !Ref AuroraPostgresqlCluster
+    Export:
+      Name: AuroraPostgresqlClusterIdentifier
+  AuroraPostgresqlIdentifier:
+    Value: !Ref AuroraPostgresql
+    Export:
+      Name: AuroraPostgresqlIdentifier
+  AuroraPostgresqlSecurityGroupId:
+    Value: !Ref AuroraPostgresqlSecurityGroup
+    Export:
+      Name: AuroraPostgresqlSecurityGroupId

@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  # aurora-postgresql-example
+  AuroraPostgresqlCluster:
+    Type: AWS::RDS::DBCluster
+    DeletionPolicy: Retain
+    Properties:
+      DBClusterIdentifier: 'aurora-postgresql-cluster'
+      DatabaseName: 'schema1'
+      Engine: aurora-postgresql
+      MasterUsername: 'postgres'
+      MasterUserPassword: 'postgres'
+      # Portを指定しないと3306(mysqlのデフォルトポート)になってしまった
+      Port: 5432
+      VpcSecurityGroupIds:
+        - !Ref 'AuroraPostgresqlSecurityGroup'
+      # クラスタパラメーターに変更はないため、マネージメントコンソールから事前に作成した
+      DBClusterParameterGroupName: 'aurora-postgresql-cluster'
+      # サブネットグループは事前作成していたものを指定した
+      DBSubnetGroupName: 'write-your-subnet-group-name'
+      # 暗号化は指定しないと無効になる
+      StorageEncrypted: true
+
+  AuroraPostgresql:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: Retain
+      Properties:
+        DBInstanceIdentifier: 'aurora-postgresql'
+        DBClusterIdentifier: !Ref 'AuroraPostgresqlCluster'
+        Engine: aurora-postgresql
+        EngineVersion: 9.6.3
+        DBInstanceClass: db.r4.large
+        AvailabilityZone: ap-northeast-1c
+        DBParameterGroupName: !Ref 'AuroraPostgresqlDBParameterGroup'
+        # サブネットグループは事前作成していたものを指定した
+        DBSubnetGroupName: 'write-your-subnet-group-name'
+
+  AuroraPostgresqlDBParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    DeletionPolicy: Retain
+    Properties:
+      Tags:
+          -
+            Key: 'GroupName'
+            Value: 'aurora-postgresql-dbparametergroup'
+      Description: 'for aurora-postgresql'
+      Family: 'aurora-postgresql9.6'
+      Parameters:
+        work_mem: 5242880
+        maintenance_work_mem: 10485760
+
+    AuroraPostgresqlSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      DeletionPolicy: Retain
+      Properties:
+        GroupName: 'aurora-postgresql-sg'
+        GroupDescription: 'for aurora-postgresql'
+        Tags:
+        -
+          Key: 'Name'
+          Value: 'aurora-postgresql-sg'
+        SecurityGroupIngress:
+          -
+            IpProtocol: 'tcp'
+            FromPort: '5432'
+            ToPort: '5432'
+            SourceSecurityGroupId: 'write you security group id'
+            Description: ''
+        # VPC
+        VpcId:
+          Fn::ImportValue: 'VpcId'

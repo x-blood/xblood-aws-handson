@@ -51,12 +51,30 @@ Resources:
         -
           Key: 'Name'
           Value: 'Public Subnet 1a'
-          
+
   RTAttachment0:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref RouteTableForPB
       SubnetId: !Ref PublicSubnet0
+
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: 192.168.195.0/24
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref Vpc
+      Tags:
+        -
+          Key: 'Name'
+          Value: 'Public Subnet 1c'
+
+  RTAttachment3:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTableForPB
+      SubnetId: !Ref PublicSubnet1
 
   PrivateSubnet0:
     Type: AWS::EC2::Subnet
@@ -101,6 +119,10 @@ Outputs:
     Value: !Ref PublicSubnet0
     Export:
       Name: 'PublicSubnet0'
+  PublicSubnet1Id:
+    Value: !Ref PublicSubnet1
+    Export:
+      Name: 'PublicSubnet1'
   PrivateSubnet0Id:
     Value: !Ref PrivateSubnet0
     Export:

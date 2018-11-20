@@ -1,3 +1,7 @@
+# aws cloudformation validate-template --template-body file://~/tech/xblood-aws-handson/cfn/vpc.yml --profile 
+# aws cloudformation create-stack --stack-name vpc --template-body file://~/tech/xblood-aws-handson/cfn/vpc.yml --profile 
+# aws cloudformation create-change-set --stack-name vpc --change-set-name vpc-change-set --template-body file://~/tech/xblood-aws-handson/cfn/vpc.yml --profile 
+# aws cloudformation delete-stack --stack-name vpc --profile 
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   Vpc:

@@ -1,3 +1,8 @@
+# aws cloudformation validate-template --template-body file://~/tech/xblood-aws-handson/cfn/rds.yml --profile 
+# aws cloudformation create-stack --stack-name rds --template-body file://~/tech/xblood-aws-handson/cfn/rds.yml --parameters ParameterKey=XbdbUser,ParameterValue=${XB_AWS_HANDSON_XBDB_USER} ParameterKey=XbdbPassword,ParameterValue=${XB_AWS_HANDSON_XBDB_PASSWORD} --profile 
+# aws cloudformation create-change-set --stack-name rds --change-set-name rds-change-set --template-body file://~/tech/xblood-aws-handson/cfn/rds.yml --parameters ParameterKey=XbdbUser,ParameterValue=${XB_AWS_HANDSON_XBDB_USER} ParameterKey=XbdbPassword,ParameterValue=${XB_AWS_HANDSON_XBDB_PASSWORD} --profile 
+# aws cloudformation delete-stack --stack-name rds --profile 
+
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
   XbdbUser:
@@ -21,6 +26,7 @@ Resources:
       MasterUserPassword:
         Ref: XbdbPassword
       Port: 3306
+      PubliclyAccessible: true
       VPCSecurityGroups:
         - !Ref 'RdsSecurityGroup'
       StorageEncrypted: false

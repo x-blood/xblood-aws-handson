@@ -7,6 +7,8 @@ Resources:
   Vpc:
     Type: AWS::EC2::VPC
     Properties:
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
       CidrBlock: 192.168.192.0/16
 
   Ig:

@@ -5,3 +5,4 @@ sam-sandbox/src/handlers/sandbox
 sam-sandbox/deploy-output.yml
 alexa-sandbox/src/handlers/node_modules
 alexa-sandbox/template-output.yml
+sam-app

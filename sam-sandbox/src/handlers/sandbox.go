@@ -7,7 +7,7 @@ import (
 )
 
 func HandleRequest(ctx context.Context) (string, error) {
-	return fmt.Sprintf("SandBox!"), nil
+	return fmt.Sprintf("SandBox!Test!"), nil
 }
 
 func main() {

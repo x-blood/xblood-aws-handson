@@ -9,4 +9,4 @@ Resources:
       CodeUri: src/handlers
       Handler: sandbox
       Runtime: go1.x
-      AutoPublishAlias: dev
+      # AutoPublishAlias: live

@@ -7,3 +7,5 @@ alexa-sandbox/src/handlers/node_modules
 alexa-sandbox/template-output.yml
 slack-delete-channel-history/src/handlers/myvenv
 sam-app
+amplify/myapp/node_modules
+

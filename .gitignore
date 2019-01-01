@@ -8,5 +8,6 @@ alexa-sandbox/template-output.yml
 slack-delete-channel-history/src/handlers/myvenv
 slack-delete-channel-history/template-output.yml
 sam-app
-amplify/myapp/node_modules
+slack-aws-billing-notification/src/handlers/myvenv
+slack-aws-billing-notification/package.zip
 

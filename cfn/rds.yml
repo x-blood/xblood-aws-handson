@@ -40,6 +40,12 @@ Resources:
       Family: 'mysql5.6'
       Parameters:
         time_zone: 'Asia/Tokyo'
+        character_set_client: 'utf8'
+        character_set_connection: 'utf8'
+        character_set_database: 'utf8'
+        character_set_results: 'utf8'
+        character_set_server: 'utf8'
+        skip-character-set-client-handshake: 1
 
   RdsSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup

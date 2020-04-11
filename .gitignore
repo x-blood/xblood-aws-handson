@@ -5,10 +5,6 @@ sam-sandbox/src/handlers/sandbox
 sam-sandbox/deploy-output.yml
 alexa-sandbox/src/handlers/node_modules
 alexa-sandbox/template-output.yml
-slack-delete-channel-history/src/handlers/myvenv
-slack-delete-channel-history/template-output.yml
 sam-app
-slack-aws-billing-notification/src/handlers/myvenv
-slack-aws-billing-notification/package.zip
-slack-aws-billing-notification/template-output.yml
+patch
 
